@@ -1,85 +1,211 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+![Lara-passport-play demo](Lara-passport-play.gif)
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+## End point call
+```PHP
+	http://127.0.0.1:8000/api/register
+	http://127.0.0.1:8000/api/login
+```
 
-## About Laravel
+## Sqlite Configuration
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+1. After creating a new SQLite database using a command such as
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+```bash
+	> touch database/database.sqlite
+``` 
+ 
+you can easily configure your environment variables to point to this newly created database
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+a. by using the database's absolute path:
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```bash
+	DB_CONNECTION=sqlite
+	DB_DATABASE=/absolute/path/to/database.sqlite
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+b. Remove DB_DATABASE=... from .env and use the path in the config/database.php
+- set 'default' => env('DB_CONNECTION', 'sqlite'), make sure this exist
 
-## Laravel Sponsors
+```PHP
+	'connections' => [
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+        'sqlite' => [
+            'driver' => 'sqlite',
+            'url' => env('DATABASE_URL'),
+            'database' => env('DB_DATABASE', database_path('database.sqlite')),
+            'prefix' => '',
+            'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
+        ],
+		...
+```
+		
+- move your database.sqlite to 'database' folder in your app root folder.
 
-### Premium Partners
+if you run into any problem concerning connecting to database, run the following commands
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
+- php artisan config:cache
 
-### Community Sponsors
+- php artisan config:clear
 
-<a href="https://op.gg"><img src="http://opgg-static.akamaized.net/icon/t.rectangle.png" width="150"></a>
+- restart server: php artisan server
 
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [云软科技](http://www.yunruan.ltd/)
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+##Laravel Passport Setup / Installation
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. Download and install [git](https://git-scm.com/)
 
-## Security Vulnerabilities
+2. Clone project
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+    > git clone https://github.com/ereyomi/libraryApi
+```
 
-## License
+3. cd project-name
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+4. Install Dependencies
+
+```bash
+    > npm install (optional)
+    > composer require
+```
+5. Copy the .env.example file and rename it into the .env file (For this you can run the following command)
+
+```bash
+	> copy .env.example .env
+```
+6. Run the following command to generate a new key
+
+```bash
+	> php artisan key:generate
+```
+7. Migrate DataBase
+
+```bash
+	> php artisan migrate
+	> php artisan db:seed (start up with dummy data) (optional: for this project)
+	> php artisan migrate:fresh --seed (this is the combination of the above commands)
+```
+8. Run project
+
+```bash
+    > php artisan serve 
+```
+9. if you run into any problem concerning connecting to database, run the following commands
+
+```bash
+	> php artisan config:cache
+	> php artisan config:clear
+	> restart server: php artisan server
+```
+10. Set the right permissions on all directories and files in your project by simply running (Optional)
+
+```bash
+	> chmod 755 -R nameofyourproject/
+	> chmod -R o+w nameofyourproject/storage
+```
+
+##To use DB_DATABASE
+
+In the .env file use absolute  path 
+e.g
+
+	DB_DATABASE=C:\xampp\htdocs\larapoll\database\database.sqlite
+
+
+###Installation and SetUp
+
+Thanks to [Laravel Passport Docs](https://laravel.com/docs/7.x/passport) 
+
+1. To get started, install Passport via the Composer package manager:
+
+```bash
+    > composer require laravel/passport
+```
+
+
+2. The Passport service provider registers its own database migration directory with the framework, so you should migrate your database after installing the package. The Passport migrations will create the tables your application needs to store clients and access tokens:
+
+
+```bash
+    > php artisan migrate
+```
+
+3. Next, you should run the `passport:install` command. This command will create the encryption keys needed to generate secure access tokens. In addition, the command will create "personal access" and "password grant" clients which will be used to generate access tokens:
+
+
+```bash
+    > php artisan passport:install
+```
+
+4. After running the `passport:install` command, add the `Laravel\Passport\HasApiTokens` trait to your `App\User model`. This trait will provide a few helper methods to your model which allow you to inspect the authenticated user's token and scopes:
+
+
+```PHP
+	<?php
+
+		namespace App;
+
+		use Illuminate\Foundation\Auth\User as Authenticatable;
+		use Illuminate\Notifications\Notifiable;
+		use Laravel\Passport\HasApiTokens;
+
+		class User extends Authenticatable
+		{
+		    use HasApiTokens, Notifiable;
+		}
+```
+
+4. Next, you should call the `Passport::routes` method within the `boot` method of your `AuthServiceProvider`. This method will register the routes necessary to issue access tokens and revoke access tokens, clients, and personal access tokens:
+
+```PHP
+	<?php
+
+		namespace App\Providers;
+
+		use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+		use Illuminate\Support\Facades\Gate;
+		use Laravel\Passport\Passport;
+
+		class AuthServiceProvider extends ServiceProvider
+		{
+		    /**
+		     * The policy mappings for the application.
+		     *
+		     * @var array
+		     */
+		    protected $policies = [
+		        'App\Model' => 'App\Policies\ModelPolicy',
+		    ];
+
+		    /**
+		     * Register any authentication / authorization services.
+		     *
+		     * @return void
+		     */
+		    public function boot()
+		    {
+		        $this->registerPolicies();
+
+		        Passport::routes();
+		    }
+		}
+```
+
+5. Finally, in your `config/auth.php` configuration file, you should set the driver option of the api authentication guard to `passport`. This will instruct your application to use Passport's `TokenGuard` when authenticating incoming API requests:
+
+```PHP
+	'guards' => [
+	    'web' => [
+	        'driver' => 'session',
+	        'provider' => 'users',
+	    ],
+
+	    'api' => [
+	        'driver' => 'passport',
+	        'provider' => 'users',
+	    ],
+	],
+```
