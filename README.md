@@ -53,7 +53,7 @@ if you run into any problem concerning connecting to database, run the following
 
 
 
-##Laravel Passport Setup / Installation
+## Laravel Passport Setup / Installation
 
 1. Download and install [git](https://git-scm.com/)
 
@@ -107,7 +107,7 @@ if you run into any problem concerning connecting to database, run the following
 	> chmod -R o+w nameofyourproject/storage
 ```
 
-##To use DB_DATABASE
+## To use DB_DATABASE
 
 In the .env file use absolute  path 
 e.g
@@ -115,7 +115,7 @@ e.g
 	DB_DATABASE=C:\xampp\htdocs\larapoll\database\database.sqlite
 
 
-###Installation and SetUp
+### Installation and SetUp
 
 Thanks to [Laravel Passport Docs](https://laravel.com/docs/7.x/passport) 
 
