@@ -69,6 +69,7 @@ if you run into any problem concerning connecting to database, run the following
 
 ```bash
     > npm install (optional)
+    > composer install
     > composer require
 ```
 5. Copy the .env.example file and rename it into the .env file (For this you can run the following command)
